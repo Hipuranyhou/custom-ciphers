@@ -8,14 +8,12 @@ int getStrLen(char *str) {
 
 char getLower(char c) {
     if (c <= 109) return c + 13;
-    if (c > 109) return 97 + (12 - (122 - c));
-    return '?';
+    return 97 + (12 - (122 - c));
 }
 
 char getUpper(char c) {
     if (c <= 77) return c + 13;
-    if (c > 77) return 65 + (12 - (90 - c));
-    return '?';
+    return 65 + (12 - (90 - c));
 }
 
 char getIndex(char c) {

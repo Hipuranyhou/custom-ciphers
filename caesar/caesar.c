@@ -1,6 +1,32 @@
 #include <stdio.h>
 
+int getStrLen(char *str) {
+    int len = 0;
+    while (str[len] != '\0') len++;
+    return len;
+}
+
+char getLower(char c, int shift) {
+    if ((c + shift) <= 122) return c + shift;
+    return 97 + ((shift - 1) - (122 - c));
+}
+
+char getUpper(char c, int shift) {
+    if ((c + shift) <= 90) return c + shift;
+    return 65 + ((shift - 1) - (90 - c));
+}
+
+char getIndex(char c, int shift) {
+    if (c >= 'a' && c <= 'z') return getLower(c, shift);
+    if (c >= 'A' && c <= 'Z') return getUpper(c, shift);
+    return c;
+}
+
 void shiftString(char *line, int shift) {
+    int len = getStrLen(line);
+    shift = (shift > 26) ? (shift - 26) : shift;
+    for (int i = 0; i < len; ++i) printf("%c", getIndex(line[i], shift));
+    printf("\n");
     return;
 }
 
@@ -20,6 +46,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    shiftString(argv[2], shift);
+    if (shift > 0) shiftString(argv[2], shift);
+    else printf("%s\n", argv[2]);
+
     return 0;
 }

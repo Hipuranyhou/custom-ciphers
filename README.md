@@ -1,5 +1,5 @@
 # custom-ciphers
-Custom tools for basic ciphers
+Custom tools for basic ciphers.
 
 ### rot13
 Prints only rotated string on newline.
