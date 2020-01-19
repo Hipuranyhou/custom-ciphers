@@ -16,7 +16,7 @@ Returns 0 on success, 1 on error.
 ```
 caesar NUMBER STRING
 ```
-Bruteforce mode
+Bruteforce mode:
 ```
 caesar -b STRING
 ```
