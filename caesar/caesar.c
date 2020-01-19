@@ -24,7 +24,7 @@ char getIndex(char c, int shift) {
 
 void shiftString(char *line, int shift) {
     int len = getStrLen(line);
-    shift = (shift > 25) ? (shift - 26) : shift;
+    shift = (shift > 25) ? (shift % 26) : shift;
     for (int i = 0; i < len; ++i) printf("%c", getIndex(line[i], shift));
     printf("\n");
     return;
@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
     if (argc < 3) {
         // Missing argument
         printf("Missing argument.\n");
-        printf("Usage: caesar NUMBER STRING1\n");
+        printf("Usage: caesar NUMBER/KEY STRING1\n");
         return 1;
     }
 
@@ -53,9 +53,13 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    if (!sscanf(argv[1], " %d", &shift)) {
-        printf("First argument is not a number.\n");
-        printf("Usage: caesar NUMBER STRING\n");
+    if (argv[1][0] >= 'a' && argv[1][0] <= 'z') {
+        shift = argv[1][0] - 97;
+    } else if (argv[1][0] >= 'A' && argv[1][0] <= 'Z') {
+        shift = argv[1][0] - 65;
+    } else if (!sscanf(argv[1], " %d", &shift)) {
+        printf("First argument is not a number or key.\n");
+        printf("Usage: caesar NUMBER/KEY STRING\n");
         return 1;
     }
 
