@@ -24,9 +24,17 @@ char getIndex(char c, int shift) {
 
 void shiftString(char *line, int shift) {
     int len = getStrLen(line);
-    shift = (shift > 26) ? (shift - 26) : shift;
+    shift = (shift > 25) ? (shift - 26) : shift;
     for (int i = 0; i < len; ++i) printf("%c", getIndex(line[i], shift));
     printf("\n");
+    return;
+}
+
+void shiftBrute(char *line) {
+    for (int i = 1; i < 26; ++i) {
+        printf("%2d: ", i);
+        shiftString(line, i);
+    }
     return;
 }
 
@@ -40,14 +48,17 @@ int main(int argc, char **argv) {
         return 1;
     }
 
+    if (argv[1][0] == '-' && argv[1][1] == 'b') {
+        shiftBrute(argv[2]);
+        return 0;
+    }
+
     if (!sscanf(argv[1], " %d", &shift)) {
         printf("First argument is not a number.\n");
         printf("Usage: caesar NUMBER STRING\n");
         return 1;
     }
 
-    if (shift > 0) shiftString(argv[2], shift);
-    else printf("%s\n", argv[2]);
-
+    shiftString(argv[2], shift);
     return 0;
 }
