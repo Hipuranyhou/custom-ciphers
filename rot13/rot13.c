@@ -25,7 +25,7 @@ char getIndex(char c) {
     return c;
 }
 
-void Rot13(char *line) {
+void rot13(char *line) {
     int len = getStrLen(line);
     char *rotated = (char*)malloc((len + 1) * sizeof(char));
     for (int i = 0; i < len; ++i) {
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
     } else {
         // Rotate each string
         for (int i = 1; i < argc; ++i) {
-            Rot13(argv[i]);
+            rot13(argv[i]);
         }
     }
 
