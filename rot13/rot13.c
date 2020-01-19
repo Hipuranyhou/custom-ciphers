@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 int getStrLen(char *str) {
     int len = 0;
@@ -27,13 +26,8 @@ char getIndex(char c) {
 
 void rot13(char *line) {
     int len = getStrLen(line);
-    char *rotated = (char*)malloc((len + 1) * sizeof(char));
-    for (int i = 0; i < len; ++i) {
-        rotated[i] = getIndex(line[i]);
-    }
-    rotated[len] = '\0';
-    printf("%s\n", rotated);
-    free(rotated);
+    for (int i = 0; i < len; ++i) printf("%c", getIndex(line[i]));
+    printf("\n");
     return;
 }
 
@@ -42,13 +36,10 @@ int main(int argc, char **argv) {
     if (argc < 2) {
         // Missing string argument
         printf("Missing string argument.\n");
-        printf("Usage: rot13 STRING1 [STRING2...]\n");
-    } else {
-        // Rotate each string
-        for (int i = 1; i < argc; ++i) {
-            rot13(argv[i]);
-        }
+        printf("Usage: rot13 STRING\n");
+        return 1;
     }
 
+    rot13(argv[1]);
     return 0;
 }
