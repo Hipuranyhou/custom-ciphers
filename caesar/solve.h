@@ -3,10 +3,8 @@
 
 int getStrLen(char *str);
 
-char encryptLower(char c, int shift);
-char encryptUpper(char c, int shift);
-char decryptLower(char c, int shift);
-char decryptUpper(char c, int shift);
+char encryptChar(char c, int shift, char size);
+char decryptChar(char c, int shift, char size);
 
 char getIndex(char mode, char c, int shift);
 

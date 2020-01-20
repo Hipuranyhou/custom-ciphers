@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 int getStrLen(char *str) {
     int len = 0;
@@ -7,28 +8,12 @@ int getStrLen(char *str) {
     return len;
 }
 
-char encryptLower(char c, int shift) {
-    if ((c + shift) <= 'z')
-        return c + shift;
-    return 'a' + ((shift - 1) - ('z' - c));
+char encryptChar(char c, int shift, char size) {
+    return (((c - size) + shift) % 26) + size;
 }
 
-char encryptUpper(char c, int shift) {
-    if ((c + shift) <= 'Z')
-        return c + shift;
-    return 'A' + ((shift - 1) - ('Z' - c));
-}
-
-char decryptLower(char c, int shift) {
-    if ((c - shift) >= 'a')
-        return c - shift;
-    return 'z' - ((shift - 1) + ('a' - c));
-}
-
-char decryptUpper(char c, int shift) {
-    if ((c - shift) >= 'A')
-        return c - shift;
-    return 'Z' - ((shift - 1) + ('A' - c));
+char decryptChar(char c, int shift, char size) {
+    return ((((c - size) - shift) + 26) % 26) + size;
 }
 
 char getIndex(char mode, char c, int shift) {
@@ -38,16 +23,16 @@ char getIndex(char mode, char c, int shift) {
     */
     switch(mode) {
         case 'e':
-            if (c >= 'a' && c <= 'z')
-                return encryptLower(c, shift);
-            if (c >= 'A' && c <= 'Z')
-                return encryptUpper(c, shift);
+            if (islower(c))
+                return encryptChar(c, shift, 'a');
+            if (isupper(c))
+                return encryptChar(c, shift, 'A');
             break;
         case 'd':
-            if (c >= 'a' && c <= 'z')
-                return decryptLower(c, shift);
-            if (c >= 'A' && c <= 'Z')
-                return decryptUpper(c, shift);
+            if (islower(c))
+                return decryptChar(c, shift, 'a');
+            if (isupper(c))
+                return decryptChar(c, shift, 'A');
             break;
     }
     return c;

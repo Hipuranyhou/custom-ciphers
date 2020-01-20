@@ -11,6 +11,7 @@ rot13 STRING
 ```
 
 ### Caesar
+- [ ] Criptanalysis
 ```Shell
 caesar -e NUMBER/KEY STRING
 caesar -d NUMBER/KEY STRING
