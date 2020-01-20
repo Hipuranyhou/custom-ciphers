@@ -1,47 +1,57 @@
 #include <stdio.h>
+#include <unistd.h>
 
-static const char lower[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-static const char upper[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-
-void printUsage(void) {
+void printUsage(const char *error) {
+    printf("%s\n", error);
     printf("Usage: vigenere -d KEY STRING\n");
     printf("Usage: vigenere -e KEY STRING\n");
     return;
 }
 
+char getLower(char c) {
+    return c + 32;
+}
+
 int getStrLen(char *str) {
     int len = 0;
-    while (str[len] != '\0') len++;
+    while (str[len] != '\0')
+        len++;
     return len;
 }
 
-void getDecryptIndex(char key, char text) {
-    return;
+char encrypt(char key, char text) {
+    return (((text - 97) + (key - 97)) % 26) + 97;
 }
 
-void decrypt(char *key, char *text) {
-    int lenKey = getStrLen(key);
-    int lenText = getStrLen(text);
-    int index = 0;
-    for (int i = 0; i < lenText; ++i) {
-        if (index == lenKey) index = 0;
-        printf("%c", getDecryptIndex(key, text[i]));
+char decrypt(char key, char text) {
+    return (((text - 97) - (key - 97) + 26) % 26) + 97;
+}
+
+char getIndex(char mode, char key, char text) {
+    if (!(text >= 'a' && text <= 'z')) return text;
+    switch(mode) {
+        case 'e':
+            return encrypt(key, text);
+        case 'd':
+            return decrypt(key, text);
     }
-    printf("\n");
-    return;
+    return '?';
 }
 
-void getEncryptIndex(char key, char text) {
-    return;
-}
-
-void encrypt(char *key, char *text) {
+void solve(char mode, char *key, char *text) {
     int lenKey = getStrLen(key);
     int lenText = getStrLen(text);
-    int index = 0;
+    int index = 0, upper = 0;
     for (int i = 0; i < lenText; ++i) {
         if (index == lenKey) index = 0;
-        printf("%c", getEncryptIndex(key[index], text[i]));
+        if (text[i] >= 'A' && text[i] <= 'Z') {
+            text[i] = getLower(text[i]);
+            upper = 32;
+        }
+        if (key[index] >= 'A' && key[index] <= 'Z') key[index] = getLower(key[index]);
+        printf("%c", getIndex(mode, key[index], text[i]) - upper);
+        index++;
+        upper = 0;
     }
     printf("\n");
     return;
@@ -49,31 +59,24 @@ void encrypt(char *key, char *text) {
 
 int main(int argc, char **argv) {
 
+    int opt = 0;
+
     if (argc < 4) {
         // Missing argument
-        printf("Missing parameter.\n");
-        printUsage();
+        printUsage("Missing argument.\0");
         return 1;
     }
 
-    if (argv[1][0] == '-') {
-        switch(argv[1][1]) {
-            case 'd':
-                decrypt(argv[2], argv[3]);
-                break;
+    while ((opt = getopt(argc, argv, ":ed")) != -1) {
+        switch (opt) {
             case 'e':
-                encrypt(argv[2], argv[3]);
+            case 'd':
+                solve(opt, argv[2], argv[3]);
                 break;
-            default:
-                printf("Invalid option.\n");
-                printUsage();
+            case '?':
+                printUsage("Unknown option.\0");
                 return 1;
         }
-    } else {
-        // Second parameter is not a option
-        printf("Second parameter is not an option.\n");
-        printUsage();
-        return 1;
     }
 
     return 0;

@@ -50,7 +50,7 @@ char getIndex(char mode, char c, int shift) {
             if (c >= 'A' && c <= 'Z') return decryptUpper(c, shift);
             break;
     }
-    return  ' ';
+    return c;
 }
 
 void encryptString(char *line, int shift) {
