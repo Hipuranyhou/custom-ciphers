@@ -1,7 +1,7 @@
 # custom-ciphers
 Custom tools for basic ciphers.
 
-All tools work only on english alphabet characters 
+All tools work only on english alphabet characters.
 
 `ABCDEFGHIJKLMNOPQRSTUVWXYZ` and `abcdefghijklmnopqrstuvwxyz`
 ### Rot13
