@@ -2,22 +2,14 @@
 Custom tools for basic ciphers.
 
 ### Rot13
-Prints only rotated string on newline.
-
-Returns 0 on success, 1 on error.
 ```
 rot13 STRING
 ```
 
 ### Caesar
-
-- [ ] Encrypt/decrypt selection 
-
-Prints only shifted string on newline.
-
-Returns 0 on success, 1 on error.
 ```
-caesar NUMBER/KEY STRING
+caesar -e NUMBER/KEY STRING
+caesar -d NUMBER/KEY STRING
 ```
 Bruteforce mode:
 ```
