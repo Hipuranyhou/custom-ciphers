@@ -1,22 +1,26 @@
 # custom-ciphers
 Custom tools for basic ciphers.
 
-### rot13
-Prints only rotated string on newline.
-
-Returns 0 on success, 1 on error.
+### Rot13
 ```
 rot13 STRING
 ```
 
-### caesar
-Prints only shifted string on newline.
-
-Returns 0 on success, 1 on error.
+### Caesar
 ```
-caesar NUMBER STRING
+caesar -e NUMBER/KEY STRING
+caesar -d NUMBER/KEY STRING
 ```
 Bruteforce mode:
 ```
 caesar -b STRING
 ```
+
+### Vigenère
+- [ ] Basic encrypt/decrypt
+- [ ] Crack known length key
+- [ ] Guess key length
+- [ ] Kasiski
+- [ ] Friedman
+
+[Vigenère matematika.cz](https://matematika.cz/vigenerova-sifra)
