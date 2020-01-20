@@ -30,13 +30,13 @@ char encryptUpper(char c, int shift) {
 char decryptLower(char c, int shift) {
     if ((c - shift) >= 'a')
         return c - shift;
-    return 'z' - ((shift + 1) + ('a' + c));
+    return 'z' - ((shift - 1) + ('a' - c));
 }
 
 char decryptUpper(char c, int shift) {
     if ((c - shift) >= 'A')
         return c - shift;
-    return 'Z' - ((shift + 1) + ('A' + c));
+    return 'Z' - ((shift - 1) + ('A' - c));
 }
 
 char getIndex(char mode, char c, int shift) {
