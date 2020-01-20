@@ -4,14 +4,6 @@
 #include "solve.h"
 //#include "distribution.h"
 
-void printUsage(const char *error) {
-    printf("%s\n", error);
-    printf("Usage: caesar -d NUMBER/KEY STRING\n");
-    printf("       caesar -e NUMBER/KEY STRING\n");
-    printf("       caesar -b STRING\n");
-    return;
-}
-
 void bruteforceString(char *line) {
     // Decrypt string with every of the 25 possible keys
     for (int i = 1; i < 26; ++i) {
