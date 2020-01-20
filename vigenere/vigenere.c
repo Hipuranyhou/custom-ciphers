@@ -71,7 +71,7 @@ int main(int argc, char **argv) {
         }
     } else {
         // Second parameter is not a option
-        printf("Second parameter is not a option.\n");
+        printf("Second parameter is not an option.\n");
         printUsage();
         return 1;
     }
