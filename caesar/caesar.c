@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include "helper.h"
 #include "solve.h"
 //#include "distribution.h"
 
@@ -22,10 +23,10 @@ void bruteforceString(char *line) {
 
 int getShift(char **argv, int *shift) {
     // Get shift from lowercase character
-    if (argv[2][0] >= 'a' && argv[2][0] <= 'z')
+    if (isLower(argv[2][0]))
         *shift = argv[2][0] - 97;
     // Get shift from uppercase character
-    else if (argv[2][0] >= 'A' && argv[2][0] <= 'Z')
+    else if (isUpper(argv[2][0]))
         *shift = argv[2][0] - 65;
     // Get shift from number
     else if (!sscanf(argv[2], " %d", shift) || *shift < 0)

@@ -1,12 +1,5 @@
 #include <stdio.h>
-#include <ctype.h>
-
-int getStrLen(char *str) {
-    int len = 0;
-    while (str[len] != '\0')
-        len++;
-    return len;
-}
+#include "helper.h"
 
 char encryptChar(char c, int shift, char size) {
     return (((c - size) + shift) % 26) + size;
@@ -23,15 +16,15 @@ char getIndex(char mode, char c, int shift) {
     */
     switch(mode) {
         case 'e':
-            if (islower(c))
+            if (isLower(c))
                 return encryptChar(c, shift, 'a');
-            if (isupper(c))
+            if (isUpper(c))
                 return encryptChar(c, shift, 'A');
             break;
         case 'd':
-            if (islower(c))
+            if (isLower(c))
                 return decryptChar(c, shift, 'a');
-            if (isupper(c))
+            if (isUpper(c))
                 return decryptChar(c, shift, 'A');
             break;
     }
